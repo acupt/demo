@@ -9,6 +9,11 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
+    <option name="ignoredPathMasks">
+      <list>
+        <option value=".idea/" />
+      </list>
+    </option>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
