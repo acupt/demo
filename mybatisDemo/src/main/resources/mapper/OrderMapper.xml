@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.dao.OrderDAO">
+    <resultMap id="BaseResultMap" type="com.demo.domain.OrderDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="detail" jdbcType="VARCHAR" property="detail"/>
+        <result column="buyer" jdbcType="VARCHAR" property="buyer"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, detail, buyer, created_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `order`
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.demo.domain.OrderDO" useGeneratedKeys="true" keyProperty="id">
+    insert into `order` (id, detail, buyer,
+      created_time)
+    values (#{id,jdbcType=BIGINT}, #{detail,jdbcType=VARCHAR}, #{buyer,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.demo.domain.OrderDO">
+        insert into `order`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="buyer != null">
+                buyer,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="detail != null">
+                #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer != null">
+                #{buyer,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demo.domain.OrderDO">
+        update `order`
+        <set>
+            <if test="detail != null">
+                detail = #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer != null">
+                buyer = #{buyer,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demo.domain.OrderDO">
+    update `order`
+    set detail = #{detail,jdbcType=VARCHAR},
+      buyer = #{buyer,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
